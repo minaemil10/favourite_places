@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
@@ -9,8 +11,8 @@ const uuid = Uuid();
 class FavPlacesNotifier extends StateNotifier<List<FavPlace>> {
   FavPlacesNotifier(super.state);
 
-  void addPlace(String title) {
-    final newPlace = FavPlace(id: uuid.v4(), title: title);
+  void addPlace(String title, File image) {
+    final newPlace = FavPlace(id: uuid.v4(), title: title,image: image);
     state = [newPlace, ...state];
   }
 }

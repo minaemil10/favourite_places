@@ -12,14 +12,21 @@ class FavPlaceEntry extends StatelessWidget {
   final Function() openPlace;
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        place.title,
-        style: Theme.of(context).textTheme.titleMedium!.copyWith(
-          color: Theme.of(context).colorScheme.onSurface,
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 26,
+          backgroundImage: FileImage(place.image),
         ),
+        title: Text(
+          place.title,
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        onTap: openPlace,
       ),
-      onTap: openPlace,
     );
   }
 }

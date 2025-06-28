@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:favourite_places/models/fav_place.dart';
 import 'package:favourite_places/screens/fav_place_details.dart';
 import 'package:favourite_places/screens/add_place_form.dart';
 import 'package:favourite_places/widgets/fav_place_entry.dart';
 import 'package:favourite_places/providers/fav_places_provider.dart';
-
 
 class FavPlaces extends ConsumerWidget {
   const FavPlaces({super.key});
@@ -32,21 +30,21 @@ class FavPlaces extends ConsumerWidget {
     );
     if (places.isNotEmpty) {
       content = ListView.builder(
-        itemCount: places.length,
-        itemBuilder: (BuildContext context, int index) {
-          final place = places[index];
-          return FavPlaceEntry(
-            openPlace: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => FavPlaceDetails(place: place),
-                ),
-              );
-            },
-            place: FavPlace(id: place.id, title: place.title),
-          );
-        },
-      );
+          itemCount: places.length,
+          itemBuilder: (BuildContext context, int index) {
+            final place = places[index];
+            return FavPlaceEntry(
+              openPlace: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FavPlaceDetails(place: place),
+                  ),
+                );
+              },
+              place: place,
+            );
+          },
+        );
     }
     return Scaffold(
       appBar: AppBar(
