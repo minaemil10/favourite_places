@@ -25,6 +25,12 @@ class FavPlaceEntry extends StatelessWidget {
             color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
+        subtitle: Text(
+          place.location.address,
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
         onTap: openPlace,
       ),
     );

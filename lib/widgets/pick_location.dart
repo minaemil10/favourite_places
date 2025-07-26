@@ -64,9 +64,6 @@ class _PickLocationState extends State<PickLocation> {
     var response = await http.get(url);
     var decodedResponse = json.decode(response.body);
     var address = decodedResponse['results'][0]['formatted_address'];
-    // print(address);
-    // print(locationData.longitude);
-    // print(locationData.latitude);
 
     setState(() {
       isChoosingLocation = false;
