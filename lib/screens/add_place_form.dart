@@ -1,3 +1,5 @@
+import 'package:favourite_places/models/fav_place.dart';
+import 'package:favourite_places/widgets/pick_location.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -17,17 +19,19 @@ class _AddPlaceFormState extends ConsumerState<AddPlaceForm> {
   final formKey = GlobalKey<FormState>();
   File? image;
   String title = '';
+  PlaceLocation? location;
 
   void onAddPlace() {
     if (formKey.currentState!.validate()) {
-      if (image != null) {
+      if (image != null && location != null) {
         formKey.currentState!.save();
-        ref.read(favPlacesProvider.notifier).addPlace(title, image!);
+        ref.read(favPlacesProvider.notifier).addPlace(title, image!, location!);
         Navigator.pop(context); // Close the bottom sheet
       } else {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Must Pick an image!')));
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Must Pick an image & location!')),
+        );
       }
     }
   }
@@ -63,6 +67,12 @@ class _AddPlaceFormState extends ConsumerState<AddPlaceForm> {
               ),
               const SizedBox(height: 10),
               PickImage(onPick: onPickImage),
+              const SizedBox(height: 10),
+              PickLocation(
+                onSelectLocation: (loc) {
+                  location = loc;
+                },
+              ),
               const SizedBox(height: 20),
               ElevatedButton.icon(
                 onPressed: onAddPlace,

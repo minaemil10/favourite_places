@@ -49,8 +49,8 @@ class _PickImageState extends State<PickImage> {
       width: double.infinity,
       decoration: BoxDecoration(
         border: Border.all(
-          width: 2,
-          color: Theme.of(context).colorScheme.primary,
+          width: 1,
+          color: Theme.of(context).colorScheme.primary.withAlpha((0.2*255).toInt()),
         ),
       ),
       child: content,
