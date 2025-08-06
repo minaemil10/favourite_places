@@ -1,3 +1,4 @@
+import 'package:favourite_places/screens/map.dart';
 import 'package:flutter/material.dart';
 
 import 'package:favourite_places/models/fav_place.dart';
@@ -29,9 +30,16 @@ class FavPlaceDetails extends StatelessWidget {
             right: 0,
             child: Column(
               children: [
-                CircleAvatar(
-                  radius: 70,
-                  backgroundImage: NetworkImage(locationImageURL),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => MapScreen(isSelecting: false,location: place.location,)),
+                    );
+                  },
+                  child: CircleAvatar(
+                    radius: 70,
+                    backgroundImage: NetworkImage(locationImageURL),
+                  ),
                 ),
                 Container(
                   alignment: Alignment.center,
