@@ -7,8 +7,22 @@ import 'package:favourite_places/screens/add_place_form.dart';
 import 'package:favourite_places/widgets/fav_place_entry.dart';
 import 'package:favourite_places/providers/fav_places_provider.dart';
 
-class FavPlaces extends ConsumerWidget {
+class FavPlaces extends ConsumerStatefulWidget {
   const FavPlaces({super.key});
+
+  @override
+  ConsumerState<FavPlaces> createState() => _FavPlacesState();
+}
+
+class _FavPlacesState extends ConsumerState<FavPlaces> {
+  late Future<void> _placesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _placesFuture = ref.read(favPlacesProvider.notifier).loadPlaces();
+  }
+
   // show add place form
   void addPlace(BuildContext context) {
     Navigator.of(
@@ -17,7 +31,7 @@ class FavPlaces extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     //get places list
     final places = ref.watch(favPlacesProvider);
     Widget content = Center(
@@ -30,21 +44,21 @@ class FavPlaces extends ConsumerWidget {
     );
     if (places.isNotEmpty) {
       content = ListView.builder(
-          itemCount: places.length,
-          itemBuilder: (BuildContext context, int index) {
-            final place = places[index];
-            return FavPlaceEntry(
-              openPlace: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => FavPlaceDetails(place: place),
-                  ),
-                );
-              },
-              place: place,
-            );
-          },
-        );
+        itemCount: places.length,
+        itemBuilder: (BuildContext context, int index) {
+          final place = places[index];
+          return FavPlaceEntry(
+            openPlace: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => FavPlaceDetails(place: place),
+                ),
+              );
+            },
+            place: place,
+          );
+        },
+      );
     }
     return Scaffold(
       appBar: AppBar(
@@ -58,7 +72,13 @@ class FavPlaces extends ConsumerWidget {
           ),
         ],
       ),
-      body: content,
+      body: FutureBuilder(
+        future: _placesFuture,
+        builder: (context, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+            ? CircleAvatar()
+            : content,
+      ),
     );
   }
 }

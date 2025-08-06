@@ -27,7 +27,7 @@ class _PickLocationState extends State<PickLocation> {
     return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=14&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=AIzaSyAWn2RgxY6qXV967TqpejoGqA9Xt1mtuY4';
   }
 
-  void savePlace(double latitude, double longitude) async {
+  void savePlace(double? latitude, double? longitude) async {
     var url = Uri.parse(
       'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=AIzaSyAWn2RgxY6qXV967TqpejoGqA9Xt1mtuY4',
     );
@@ -79,7 +79,7 @@ class _PickLocationState extends State<PickLocation> {
     locationData = await location.getLocation();
     var lat = locationData.latitude;
     var lng = locationData.longitude;
-    savePlace(lat!, lng!);
+    savePlace(lat, lng);
   }
 
   void chooseLocation() async {
