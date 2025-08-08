@@ -1,4 +1,5 @@
 import 'package:favourite_places/screens/map.dart';
+import 'package:favourite_places/utilities/keys.dart';
 import 'package:flutter/material.dart';
 
 import 'package:favourite_places/models/fav_place.dart';
@@ -9,7 +10,7 @@ class FavPlaceDetails extends StatelessWidget {
   String get locationImageURL {
     final lat = place.location.latitude;
     final lng = place.location.longitude;
-    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=14&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=AIzaSyAWn2RgxY6qXV967TqpejoGqA9Xt1mtuY4';
+    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=14&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=$APIKEY';
   }
 
   @override

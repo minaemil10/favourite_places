@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:favourite_places/models/fav_place.dart';
 import 'package:favourite_places/screens/map.dart';
+import 'package:favourite_places/utilities/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -24,12 +25,12 @@ class _PickLocationState extends State<PickLocation> {
     }
     final lat = chosenLocation!.latitude;
     final lng = chosenLocation!.longitude;
-    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=14&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=AIzaSyAWn2RgxY6qXV967TqpejoGqA9Xt1mtuY4';
+    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=14&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=$APIKEY';
   }
 
   void savePlace(double? latitude, double? longitude) async {
     var url = Uri.parse(
-      'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=AIzaSyAWn2RgxY6qXV967TqpejoGqA9Xt1mtuY4',
+      'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$APIKEY',
     );
     if (latitude == null || longitude == null) {
       return;
